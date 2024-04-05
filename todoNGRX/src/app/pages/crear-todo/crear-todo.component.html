@@ -1,0 +1,35 @@
+<h1>Crear nueva Tarea</h1>
+<div *ngIf="(error$ | async); else cargandoTodos">
+    <p><strong>Ha habido un error en la carga de datos</strong></p>
+</div>
+
+<ng-template #cargandoTodos>
+    
+    <div>
+        <strong *ngIf="cargando$ | async">Cargando...</strong>
+    </div>
+
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+        <input type="hidden" id="idUsuario">
+
+        <div class="todoForm-group">
+            <label for="todo">Nombre tarea</label>
+            <input formControlName="todo" id="todo" type="text" class="todoForm-control">
+            <div *ngIf="f['todo'].touched && f['todo'].invalid" class="alert alert-danger">
+                <div *ngIf="f['todo'].errors && f['todo'].errors['required']">Nombre requerido.</div>
+                <div *ngIf="f['todo'].errors && f['todo'].errors['minlength']">El nombre debería tener 3 caracteres como
+                    mínimo.</div>
+            </div>
+        </div>
+
+        <div class="todoForm-group">
+            <label for="completed">Completado</label>
+            <input formControlName="completed" id="completed" type="checkbox" class="todoForm-control">
+            <div *ngIf="f['completed'].touched && f['completed'].invalid" class="alert alert-danger">
+                <div *ngIf="f['completed'].errors && f['completed'].errors['required']">Completado es requerido.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-danger" [disabled]="todoForm.invalid" type="submit">Crear</button>
+    </form>
+</ng-template>

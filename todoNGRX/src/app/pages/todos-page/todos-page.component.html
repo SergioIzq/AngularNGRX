@@ -1,0 +1,29 @@
+<div *ngIf="(error$ | async); else cargandoTodos">
+    <p><strong>Ha habido un error en la carga de datos</strong></p>
+</div>
+
+<ng-template #cargandoTodos>
+    <div>
+        <strong *ngIf="cargando$ | async">Cargando...</strong>
+    </div>
+
+    <div *ngIf="todos$ | async as todos">
+        <button routerLink="/crear">Crear nuevo Todo</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Completada</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let todo of todos">
+                    <td>{{todo.todo}}</td>
+                    <td>{{todo.completed}}</td>                    
+                    <td><button [routerLink]="['/editar', todo.id]">Editar</button></td>
+                    <td><button (click)="dispararEliminarTodo(this.todo.id)">Eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

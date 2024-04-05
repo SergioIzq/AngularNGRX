@@ -1,0 +1,31 @@
+<h1>Editar Tarea</h1>
+<div *ngIf="(error$ | async); else cargandoTodos">
+    <p><strong>Ha habido un error en la carga de datos</strong></p>
+</div>
+
+<ng-template #cargandoTodos>
+
+    <div>
+        <strong *ngIf="cargando$ | async">Cargando...</strong>
+    </div>
+
+    <div *ngIf="todoPorId$ | async as todo">
+        <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+            <input type="hidden" id="idUsuario">
+    
+            <div class="todoForm-group">
+                <label for="todo">Nombre tarea</label>
+                <input formControlName="todo" id="todo" type="text" class="todoForm-control" [placeholder]="todo.todo">
+            </div>
+    
+            <div class="todoForm-group">
+                <label for="completed">Completado</label>
+                <input formControlName="completed" id="completed" type="checkbox" class="todoForm-control"
+                    [checked]="todo.completed">
+            </div>
+    
+            <button class="btn btn-danger" [disabled]="todoForm.invalid" type="submit">Editar</button>
+        </form>
+    </div>
+
+</ng-template>

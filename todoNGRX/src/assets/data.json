@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "bee9",
+      "todo": "Comer macarrones",
+      "completed": true
+    },
+    {
+      "id": "c4c9",
+      "todo": "Darle por culo a Javi",
+      "completed": true
+    },
+    {
+      "id": "e65f",
+      "todo": "Programar 24 horas seguidas",
+      "completed": true
+    }
+  ]
+}
