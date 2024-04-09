@@ -1,0 +1,22 @@
+<div>
+  <strong *ngIf="cargando$ | async">Cargando...</strong>
+</div>
+
+<div *ngIf="peliculas$ | async as peliculas">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Duración en minutos</th>
+        <th>Premios Ganados</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pelicula of peliculas.docs">
+        <td>{{pelicula.name}}</td>
+        <td>{{pelicula.runtimeInMinutes}}</td>
+        <td>{{pelicula.academyAwardWins}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
