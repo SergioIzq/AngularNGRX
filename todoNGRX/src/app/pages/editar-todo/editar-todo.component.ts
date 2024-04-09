@@ -16,13 +16,15 @@ import { ApiResponse } from 'src/app/models/ApiResponse.interface';
 export class EditarTodoComponent implements OnInit {
 
   todoId: string = '';
-  todoPorId$: Observable<ApiResponse | null> = new Observable();
+  todoPorId$: Observable<ApiResponse[] | null> = new Observable();
   cargando$: Observable<boolean> = new Observable();
   error$: Observable<boolean> = new Observable();
+
 
   todoForm: FormGroup = this.fb.group({
     todo: ['', [Validators.required, Validators.minLength(1)]],
     completed: ['', Validators.required],
+
   });;
 
   constructor(private store: Store<AppState>, private fb: FormBuilder, private route: ActivatedRoute) { }
@@ -32,18 +34,21 @@ export class EditarTodoComponent implements OnInit {
       const idString = params.get('id');
       if (idString !== null) {
         const id = idString;
-          this.todoId = id;
+        this.todoId = id;
       } else {
         console.error('No hay id por parámetro');
       }
     });
-    
+
+    this.store.dispatch(cargarTodoPorId({ id: this.todoId }));
+
     this.cargando$ = this.store.select(selectCargando);
     this.todoPorId$ = this.store.select(selectTodoPorId);
-    this.error$ = this.store.select(selectErrorCarga)
-    console.log(this.todoPorId$)
-    this.store.dispatch(cargarTodoPorId({ id: this.todoId }));
-    
+
+    this.todoPorId$.subscribe(todo => console.log('Todo:', todo));
+    console.log(this.todoPorId$);
+    this.error$ = this.store.select(selectErrorCarga);
+
   }
 
   get f() {
@@ -51,6 +56,9 @@ export class EditarTodoComponent implements OnInit {
   }
 
   onSubmit() {
+    const todoData = this.todoForm.value;
+    todoData.id = this.todoId;
+
     this.store.dispatch(editarTodo({ todo: this.todoForm.value }));
 
     this.cargando$ = this.store.select(selectCargando);

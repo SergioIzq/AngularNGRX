@@ -11,19 +11,20 @@
 
     <div *ngIf="todoPorId$ | async as todo">
         <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
-            <input type="hidden" id="idUsuario">
-    
+
+            
             <div class="todoForm-group">
                 <label for="todo">Nombre tarea</label>
-                <input formControlName="todo" id="todo" type="text" class="todoForm-control" [placeholder]="todo.todo">
+                <input formControlName="todo" id="todo" type="text" class="todoForm-control"
+                    [value]="todo[0].todo">
             </div>
-    
+
             <div class="todoForm-group">
                 <label for="completed">Completado</label>
                 <input formControlName="completed" id="completed" type="checkbox" class="todoForm-control"
-                    [checked]="todo.completed">
+                    [checked]="todo[0].completed">
             </div>
-    
+
             <button class="btn btn-danger" [disabled]="todoForm.invalid" type="submit">Editar</button>
         </form>
     </div>

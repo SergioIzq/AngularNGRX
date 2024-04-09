@@ -53,7 +53,7 @@ export const cargarTodoPorId = createAction(
 
 export const cargarTodoPorIdSuccess = createAction(
     'cargarTodoPorIdSuccess',
-    props<{ todoPorId: ApiResponse }>()
+    props<{ todoPorId: ApiResponse[] }>()
 );
 
 export const cargarTodoPorIdFailure = createAction(

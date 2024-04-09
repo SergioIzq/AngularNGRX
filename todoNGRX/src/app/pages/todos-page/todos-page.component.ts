@@ -26,6 +26,7 @@ export class TodosPageComponent implements OnInit {
     this.error$ = this.store.select(selectErrorCarga)
 
     this.store.dispatch(cargarTodos());
+
   }
   
   dispararEliminarTodo(id: number) {

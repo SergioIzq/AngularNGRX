@@ -15,7 +15,7 @@ export class TodosService {
   getAllTodos(): Observable<ApiResponse[]> {
     return this.http.get<ApiResponse[]>(this.apiUrl);
   }
-  
+
   getTodoById(id: string): Observable<ApiResponse> {
     const url = `${this.apiUrl}/?id=${id}`;
 
@@ -23,18 +23,19 @@ export class TodosService {
   }
 
   eliminarTodo(id: number): Observable<ApiResponse[]> {
-    const url = `${this.apiUrl}/${id}`; 
-    
+    const url = `${this.apiUrl}/${id}`;
+
     return this.http.delete<ApiResponse[]>(url);
   }
 
   crearTodo(todo: ApiResponse): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(this.apiUrl, todo);
   }
-  
+
   editarTodo(todo: ApiResponse): Observable<ApiResponse> {
-    const url = `${this.apiUrl}/${todo.id}`; // Construir la URL con el ID del post
+    const url = `${this.apiUrl}/${todo.id}`;
+    
     return this.http.put<ApiResponse>(url, todo);
-  }   
+  }
 
 }
